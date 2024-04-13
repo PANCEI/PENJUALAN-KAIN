@@ -1,4 +1,5 @@
-
+<?= $this->extend('layouts/index');  ?>
+<?= $this->section('content');  ?>
             <!-- Sale & Revenue Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
@@ -263,6 +264,9 @@
                 </div>
             </div>
             <!-- Widgets End -->
+<?= $this->endSection('content'); ?>
+<?= $this->section('js'); ?>
+<?= $this->endSection('js'); ?> 
 
 
        
