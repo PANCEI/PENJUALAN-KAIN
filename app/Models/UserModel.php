@@ -14,15 +14,16 @@ class UserModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [];
 
-    protected bool $allowEmptyInserts = false;
+
 
     // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'DATE';
     protected $createdField  = 'tanggal_update';
-    
+    protected $table2 = 'akses';
+    protected $on='id_akses.akses=id_akses.user';
 
     public function getuser($email){
-    
+    return $this->table($this->table)->join($this->table2, 'user.id_akses=akses.id_akses')->where('email', $email)->first();
     }
 }
