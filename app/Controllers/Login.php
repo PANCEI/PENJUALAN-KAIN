@@ -35,7 +35,9 @@ class Login extends BaseController
         return redirect()->to('/dashboard'); // Asumsikan Anda memiliki route ke dashboard
     }
 
-    public function cek(){
-    
+    public function out(){
+        session()->destroy();
+        return redirect()->to('/');
     }
 }
+
