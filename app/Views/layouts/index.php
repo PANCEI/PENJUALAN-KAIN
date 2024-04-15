@@ -32,6 +32,9 @@
 </head>
 
 <body>
+    <?php
+    $cek=GetMenuUser();
+    ?>
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -59,8 +62,11 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <div class="nav-item dropdown">
+                    
+                    <?php foreach($cek as $c):?>
+                        <a href="<?= $c['url'] ?>" class="nav-item nav-link <?= geturl() == $c['nama_menu']   ? 'active' : '' ?>"><i class="<?= $c['icon'] ?> me-2"></i><?= $c['nama_sub_menu'] ?></a>
+                        <?php endforeach;?>
+                    <!-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Elements</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="button.html" class="dropdown-item">Buttons</a>
@@ -80,7 +86,7 @@
                             <a href="404.html" class="dropdown-item">404 Error</a>
                             <a href="blank.html" class="dropdown-item">Blank Page</a>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </nav>
         </div>

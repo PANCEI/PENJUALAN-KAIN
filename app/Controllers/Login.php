@@ -29,6 +29,7 @@ class Login extends BaseController
         $sessionData = [
             'username' => $user['nama_lengkap'],
             'akses' => $user['akses'],
+            'id_akses'=>$user['id_akses']
         ];
         session()->set($sessionData);
 
