@@ -5,10 +5,10 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class Menu extends BaseController
+class Password extends BaseController
 {
     public function index()
     {
-        return view('menu/index');
+        return view("password/index");
     }
 }
