@@ -6,22 +6,14 @@ use CodeIgniter\Model;
 
 class UsermenuModel extends Model
 {
-    protected $table            = 'usermenus';
-    protected $primaryKey       = 'id';
+    protected $table            = 'usermenu';
+    protected $primaryKey       = 'id_user_menu';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
-
-    protected bool $allowEmptyInserts = false;
-
+    protected $allowedFields    = ['nama_menu', 'urutan_menu'];
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
-
-
+    protected $createdField  = 'tanggal_update';
 }

@@ -9,6 +9,10 @@ class Menu extends BaseController
 {
     public function index()
     {
-        return view('menu/index');
+        $Menu = new \App\Models\UsermenuModel();
+        $data =[
+            'menu'=> $Menu->orderBy('urutan_menu', 'ASC')->findAll()
+        ] ;   
+        return view('menu/index', $data);
     }
 }
