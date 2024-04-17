@@ -23,7 +23,8 @@
     <!-- Libraries Stylesheet -->
     <link href="asset/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="asset/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
+    <!-- link untuk sweet alert  -->
+    <link rel="stylesheet" href="asset/sweetalert2/dist/sweetalert2.css">
     <!-- Customized Bootstrap Stylesheet -->
     <link href="asset/css/bootstrap.min.css" rel="stylesheet">
 
@@ -153,6 +154,7 @@
 
     <!-- Template Javascript -->
     <script src="asset/js/main.js"></script>
+    <script src="asset/sweetalert2/dist/sweetalert2.js"></script>
     <?= $this->renderSection('js');?>
 </body>
 
