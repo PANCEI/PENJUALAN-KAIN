@@ -14,6 +14,8 @@ class UsermenuModel extends Model
     protected $allowedFields    = ['nama_menu', 'urutan_menu'];
     // Dates
     protected $useTimestamps = true;
-    protected $dateFormat    = 'datetime';
+    protected $dateFormat    = 'date';
     protected $createdField  = 'tanggal_update';
+    protected $updatedField  = 'tanggal_update';
+    
 }
