@@ -7,14 +7,14 @@ use CodeIgniter\Model;
 class SubUserMenuModel extends Model
 {
     protected $table            = 'subusermenus';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_sub_user_menu';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['nama_sub_menu','url','icon','id_user_menu','active','tanggal_update'];
 
-    protected bool $allowEmptyInserts = false;
+    protected bool $allowEmptyInserts = true;
 
     // Dates
     protected $useTimestamps = false;

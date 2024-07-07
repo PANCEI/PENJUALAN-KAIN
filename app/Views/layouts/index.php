@@ -21,15 +21,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="asset/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="asset/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="<?= base_url() ?>/asset/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="<?= base_url() ?>/asset/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
     <!-- link untuk sweet alert  -->
-    <link rel="stylesheet" href="asset/sweetalert2/dist/sweetalert2.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/asset/sweetalert2/dist/sweetalert2.css">
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="asset/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?= base_url() ?>/asset/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="asset/css/style.css" rel="stylesheet">
+    <link href="<?= base_url() ?>/asset/css/style.css" rel="stylesheet">
 
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
@@ -38,6 +38,15 @@
 <body>
     <?php
     $cek=GetMenuUser();
+  
+// foreach($cek as $c):
+
+// $sub=getSubUserMenu($c['id_user_menu']);
+// foreach ($sub as $s):
+//     var_dump($s);
+// endforeach;
+// endforeach;
+//     die;
     ?>
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
@@ -68,7 +77,12 @@
                 <div class="navbar-nav w-100">
                     
                     <?php foreach($cek as $c):?>
-                        <a href="<?= $c['url'] ?>" class="nav-item nav-link <?= geturl() == $c['nama_menu']   ? 'active' : '' ?>"><i class="<?= $c['icon'] ?> me-2"></i><?= $c['nama_sub_menu'] ?></a>
+                        <?php $sub=getSubUserMenu($c['id_user_menu']) ?>
+                        
+                        <?php foreach ($sub as $s): ?>
+                          
+                        <a href="<?= base_url()?><?= $s['url'] ?>" class="nav-item nav-link "><i class="<?= $s['icon'] ?> me-2"></i><?= $s['nama_sub_menu'] ?></a>
+                        <?php endforeach;?>
                         <?php endforeach;?>
                 </div>
             </nav>
@@ -98,9 +112,9 @@
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <a href="/profil" class="dropdown-item">My Profile</a>
+                            
+                            <a href="<?= base_url()?>login/out" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -141,20 +155,20 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="asset/lib/chart/chart.min.js"></script>
-    <script src="asset/lib/easing/easing.min.js"></script>
-    <script src="asset/lib/waypoints/waypoints.min.js"></script>
-    <script src="asset/lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="asset/lib/tempusdominus/js/moment.min.js"></script>
-    <script src="asset/lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="asset/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="<?= base_url() ?>/asset/lib/chart/chart.min.js"></script>
+    <script src="<?= base_url() ?>/asset/lib/easing/easing.min.js"></script>
+    <script src="<?= base_url() ?>/asset/lib/waypoints/waypoints.min.js"></script>
+    <script src="<?= base_url() ?>/asset/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="<?= base_url() ?>/asset/lib/tempusdominus/js/moment.min.js"></script>
+    <script src="<?= base_url() ?>/asset/lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="<?= base_url() ?>/asset/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="asset/js/main.js"></script>
-    <script src="asset/sweetalert2/dist/sweetalert2.js"></script>
+    <script src="<?= base_url() ?>/asset/js/main.js"></script>
+    <script src="<?= base_url() ?>/asset/sweetalert2/dist/sweetalert2.js"></script>
     <?= $this->renderSection('js');?>
 </body>
 

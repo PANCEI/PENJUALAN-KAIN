@@ -43,5 +43,8 @@ public function tambahMenu()
       return "gagal";
     }
 }
+public function SubMenu(){
+    return view('submenu/index');
+}
     
 }
