@@ -10,6 +10,7 @@ class Menu extends BaseController
     public function index()
     {
         $Menu = new \App\Models\UsermenuModel();
+
         $data =[
             'menu'=> $Menu->orderBy('urutan_menu', 'ASC')->findAll()
         ] ;   
@@ -44,7 +45,30 @@ public function tambahMenu()
     }
 }
 public function SubMenu(){
-    return view('submenu/index');
+    $sub_menu= new \App\Models\SubUserMenuModel();
+    $menu=new \App\Models\UsermenuModel();
+    $data = [
+        'sub_menu' => $sub_menu->getSubMenu(),
+        'menu'=>$menu->findAll()
+    ];
+
+    return view('submenu/index',$data);
 }
+public function deleteMenu(){
+    $id=$this->request->getVar('id');
+    $Menu = new \App\Models\UsermenuModel();
+    $delete = $Menu->delete($id);
+
+    if($delete){
+       return "berhasil";
+    } else {
+      return "gagal";
+    }
+}
+public function editSubMenu(){
+var_dump($_POST);
+}
+
+
     
 }

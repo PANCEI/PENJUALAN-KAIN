@@ -26,7 +26,7 @@
                                         <td><?= $m['nama_menu']; ?></td>
                                         <td><?= $m['urutan_menu']; ?></td>
                                         <td>
-                                        <button type="button" class="btn btn-square btn-primary m-2"><i class="fa fa-trash"></i></button>
+                                        <button type="button" class="btn btn-square btn-primary m-2 delete-menu" data-id="<?= $m['id_user_menu']?>"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>
                                     <?php $i++; ?>
@@ -67,7 +67,7 @@
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tutup</button>
                     <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                 </div>
-                </div>
+             </div>
     </form>
   </div>
 </div>
@@ -144,6 +144,82 @@ $.ajax({
 }
 
 });
+
+    $('.delete-menu').on('click', function(e) {
+        e.preventDefault();
+        var idMenu = $(this).data('id');
+        var row = $(this).closest('tr');
+        var namaMenu = row.find('td:eq(0)').text();
+        var urutanMenu = row.find('td:eq(1)').text();
+        console.log(row);
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Anda tidak akan dapat mengembalikan ini!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '<?= base_url('menu/deleteMenu') ?>',
+                    type: 'POST',
+                    data: {
+                        nama_menu: namaMenu,
+                        urutan_menu: urutanMenu,
+                        id:idMenu  
+                    },
+                    success: function(response) {
+                        if(response == 'berhasil'){
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil',
+                                text: 'Menu berhasil dihapus!',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload(); // Reload halaman untuk melihat perubahan
+                                }
+                            });
+                        }else if(response == 'gagal'){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal Di Hapus Dari Database',
+                                text: 'Menu gagal dihapus!',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload(); // Reload halaman untuk melihat perubahan
+                                }
+                            });
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal Verfikasi',
+                                text: 'Menu gagal verifikasi!',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload(); // Reload halaman untuk melihat perubahan
+                                }
+                            });
+                        }
+
+                        console.log(response);
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: 'Terjadi kesalahan, menu tidak berhasil dihapus!',
+                        });
+                    }
+                });
+            }
+        });
+    });
+
+   
+
+
 
 </script>
 <?= $this->endSection();  ?> 
