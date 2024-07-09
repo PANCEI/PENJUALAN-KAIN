@@ -26,7 +26,7 @@ class SubUserMenuModel extends Model
 public function getSubMenu()
 {
     return $this->db->table($this->table)
-        ->select('subusermenu.id_sub_user_menu,subusermenu.nama_sub_menu,subusermenu.url,subusermenu.icon,subusermenu.active, usermenu.nama_menu ,subusermenu.id_user_menu')
+        ->select('subusermenu.id_sub_user_menu,subusermenu.nama_sub_menu,subusermenu.url,subusermenu.icon,subusermenu.active, usermenu.nama_menu ,subusermenu.id_user_menu,subusermenu.active')
         ->join('usermenu', 'usermenu.id_user_menu = subusermenu.id_user_menu')
         ->get()
         ->getResultArray();

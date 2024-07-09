@@ -1,5 +1,7 @@
 <?= $this->extend('layouts/index');  ?>
 <?= $this->section('content');  ?>
+<div class="flash-success" data-flash="<?= session()->getFlashdata('success'); ?>"></div>
+    <div class="flash-error" data-flash="<?= session()->getFlashdata('error'); ?>"></div>
 <div class="col-12">
                         <div class="bg-secondary rounded h-100 p-4">
                             <h6 class="mb-4">Sub Menu</h6>
@@ -19,6 +21,7 @@
                                     <tbody>
                                         <?php $no=1; ?>
                                     <?php foreach ($sub_menu as $sb): ?> 
+                                        <?php if($sb['nama_sub_menu'] != 'Submenu') :?>
                                         <tr>
                                             <th scope="row"><?= $no ?></th>
                                             <td><?= $sb['nama_sub_menu'] ?></td>
@@ -26,14 +29,14 @@
                                             <td><?= $sb['icon'] ?></td>
                                             <td>
                                             <?php if($sb['active']==1): ?>
-                                            <button type="button" class="btn btn-success rounded-pill m-2">Active</button>
+                                            <button type="button" class="btn btn-success active rounded-pill m-2" data-id="<?= $sb['id_sub_user_menu'] ?>" data-active="<?= $sb['active']?>" >Active</button>
                                             <?php elseif($sb['active']==0): ?>
-                                            <button type="button" class="btn btn-danger rounded-pill m-2">Danger</button>
+                                            <button type="button" class="btn btn-danger active rounded-pill m-2">Danger</button>
                                              <?php endif;?>   
                                             </td>
                                             <td><?= $sb['nama_menu'] ?></td>
                                             <td>
-                                            <button type="button" class="btn btn-square btn-primary m-2 delete-menu" data-id="<?= $sb ['id_sub_user_menu']?>"><i class="fa fa-trash"></i></button>
+                                            <button type="button" class="btn btn-square btn-primary m-2 " data-id="<?= $sb ['id_sub_user_menu']?>"><i class="fa fa-trash"></i></button>
                                             <button type="button" class="btn btn-square btn-primary m-2 delete-menu" data-id="<?= $sb['id_sub_user_menu']?>" data-bs-toggle="modal" data-bs-target="#EditSub<?= $sb['id_sub_user_menu'] ?>"><i class="fa fa-edit"></i></button>
                                             </td>
                                         </tr>
@@ -92,6 +95,7 @@
 </div>
 <!-- akhir modal -->
                                         <?php $no++ ?>
+                                        <?php endif; ?>
                                         <?php endforeach; ?>
                                      
                                     </tbody>
@@ -102,6 +106,70 @@
 <?= $this->endSection();  ?>
 <?= $this->section('js');  ?>
 <script>
-    
+let success=$('.flash-success').data('flash');
+if(success){
+    Swal.fire(
+  'success',
+    success,
+  'success'
+)
+}
+let  error=$('.flash-error').data('flash');
+if(error){
+    Swal.fire(
+  'Error',
+    error,
+  'error'
+)
+} 
+$('.active').on('click',function(e){
+e.preventDefault();
+let id=$(this).data('id');
+let active= $(this).data('active');
+Swal.fire({
+    title: 'Apakah Anda yakin?',
+    text: "Tidak dapat mengubah status ini!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Ya, ubah status!'
+}).then((result) => {
+    if (result.isConfirmed) {
+        $.ajax({
+            url: '/ubah-status/',
+            type: 'POST',
+            data: {
+                active: active,
+                id:id
+            },
+            success: function(response) {
+                if(response.status) {
+                    Swal.fire(
+                        'Berhasil!',
+                        'Status berhasil diubah.',
+                        'success'
+                    );
+                    location.reload();
+                } else {
+                    Swal.fire(
+                        'Gagal!',
+                        'Gagal mengubah status.',
+                        'error'
+                    );
+                }
+            },
+            error: function(xhr, status, error) {
+                Swal.fire(
+                    'Error!',
+                    'Terjadi kesalahan: ' + xhr.responseText,
+                    'error'
+                );
+            }
+        });
+    }
+});
+});
+
 </script>
 <?= $this->endSection();  ?> 
